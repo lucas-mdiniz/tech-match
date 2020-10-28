@@ -1,0 +1,123 @@
+{
+  "name": "@entria/fullstack",
+  "description": "Entria FullStack Playground",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
+    "@babel/plugin-proposal-do-expressions": "^7.12.1",
+    "@babel/plugin-proposal-export-default-from": "^7.12.1",
+    "@babel/plugin-proposal-export-namespace-from": "^7.12.1",
+    "@babel/plugin-proposal-function-bind": "^7.12.1",
+    "@babel/plugin-proposal-function-sent": "^7.12.1",
+    "@babel/plugin-proposal-json-strings": "^7.12.1",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.12.1",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
+    "@babel/plugin-proposal-numeric-separator": "^7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
+    "@babel/plugin-proposal-pipeline-operator": "^7.12.1",
+    "@babel/plugin-proposal-throw-expressions": "^7.12.1",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/plugin-transform-async-to-generator": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-flow": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/dotenv-safe": "^8.1.1",
+    "@types/graphql-relay": "^0.6.0",
+    "@types/kcors": "^2.2.3",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.4.1",
+    "@types/mongoose": "^5.7.36",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.5.2",
+    "danger": "^10.5.0",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-okonet": "^7.0.2",
+    "eslint-config-shellscape": "^2.1.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-import-resolver-webpack": "^0.13.0",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-relay": "^1.8.1",
+    "flow-bin": "^0.136.0",
+    "get-yarn-workspaces": "^1.0.2",
+    "husky": "^4.3.0",
+    "jest": "^26.5.3",
+    "jest-runner-eslint": "^0.10.0",
+    "lint-staged": "^10.4.2",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3",
+    "typescript-eslint-parser": "^22.0.0"
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --single-quote true --trailing-comma all --print-width 100",
+      "yarn jest:lint --passWithNoTests",
+      "git add"
+    ],
+    "*.ts": [
+      "prettier --write --single-quote true --trailing-comma all --print-width 100",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.tsx": [
+      "prettier --write --single-quote true --trailing-comma all --print-width 100",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.yml": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "main": "index.js",
+  "pre-commit": "lint-staged",
+  "private": true,
+  "scripts": {
+    "app:android": "yarn workspace @entria/app android",
+    "app:clear": "yarn workspace @entria/app clear",
+    "app:ios": "yarn workspace @entria/app ios",
+    "app:relay": "yarn workspace @entria/app relay",
+    "app:start": "yarn workspace @entria/app start",
+    "app:studio": "yarn workspace @entria/app studio",
+    "app:xcode": "yarn workspace @entria/app xcode",
+    "delete:all": "yarn delete:build && yarn delete:node_modules && yarn delete:yarn-offline-cache",
+    "delete:build": "find . -name \"build\" -exec rm -rf '{}' +",
+    "delete:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
+    "delete:yarn-offline-cache": "find . -name \"yarn-offline-cache\" -exec rm -rf '{}' +",
+    "delete:yarn.lock": "find . -name \"yarn.lock\" -exec rm -rf '{}' +",
+    "jest:lint": "jest --config jest-eslint.config.js",
+    "lint": "eslint --ext .js packages/**",
+    "lint:staged": "lint-staged",
+    "start:android": "yarn workspace @entria/app android",
+    "start:restria": "yarn workspace @entria/restria start",
+    "start:server": "yarn workspace @entria/server start",
+    "test": "jest --coverage",
+    "web:relay": "yarn workspace @entria/web relay",
+    "web:start": "yarn workspace @entria/web start"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "dependencies": {
+    "metro-config": "^0.59.0"
+  }
+}
