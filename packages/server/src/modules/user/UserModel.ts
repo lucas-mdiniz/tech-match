@@ -20,6 +20,16 @@ const schema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    role: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true, 
+      validate: {
+        validator:(role: string) => ['designer', 'developer'].includes(role)
+      },
+      message: () => `Role must be a designer or a developer`
+    }
   },
   {
     timestamps: {
@@ -35,6 +45,7 @@ export interface IUser extends Document {
   password?: string;
   email: string;
   active: boolean;
+  role: string;
   authenticate: (plainTextPassword: string) => boolean;
   encryptPassword: (password: string | undefined) => string;
 }

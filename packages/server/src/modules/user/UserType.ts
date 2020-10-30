@@ -26,6 +26,10 @@ const UserType = registerType(
         type: GraphQLBoolean,
         resolve: user => user.active,
       },
+      role: {
+        type: GraphQLString,
+        resolve: user => user.role,
+      }
     }),
     interfaces: () => [nodeInterface],
   }),

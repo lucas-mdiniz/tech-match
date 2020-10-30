@@ -20,10 +20,13 @@ export default class User {
 
   active: boolean | null | undefined;
 
+  role: string;
+
   constructor(data: IUser, { user }: GraphQLContext) {
     this.id = data._id;
     this._id = data._id;
     this.name = data.name;
+    this.role = data.role;
 
     // you can only see your own email, and your active status
     if (user && user._id.equals(data._id)) {
