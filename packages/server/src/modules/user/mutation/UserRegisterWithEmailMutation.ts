@@ -19,8 +19,11 @@ export default mutationWithClientMutationId({
     password: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    role: {
+      type: new GraphQLNonNull(GraphQLString),
+    }
   },
-  mutateAndGetPayload: async ({ name, email, password }) => {
+  mutateAndGetPayload: async ({ name, email, password, role }) => {
     let user = await UserModel.findOne({ email: email.toLowerCase() });
 
     if (user) {
@@ -29,10 +32,19 @@ export default mutationWithClientMutationId({
       };
     }
 
+    const validateRole = ['designer', 'developer'].includes(role.toLowerCase().trim())
+    
+    if(!validateRole){
+      return {
+        error: 'Role must be a designer or a developer'
+      }
+    }
+
     user = new UserModel({
       name,
       email,
       password,
+      role
     });
 
     await user.save();
