@@ -1,16 +1,22 @@
-
-
 import jwt from 'jsonwebtoken';
 import { User } from './model';
 import { jwtSecret } from './config';
+import { IUser } from './modules/user/UserModel';
 
 export async function getUser(token: string) {
   if (!token) return { user: null };
 
-  try {
-    const decodedToken = jwt.verify(token.substring(4), jwtSecret);
+  token = token.substring(7);
 
-    const user = await User.findOne({ _id: (decodedToken as { id: string }).id });
+  try {
+
+    const decodedToken = jwt.verify(token, jwtSecret);
+
+    const user = await User.findOne({ _id: (decodedToken as { id: string }).id, 'tokens.token': token});
+
+    if (!user) {
+      return { user: null};
+    }
 
     return {
       user,
@@ -20,10 +26,12 @@ export async function getUser(token: string) {
   }
 }
 
-type UserType = {
-  _id: string,
-};
+export async function generateToken(user: IUser) {
+  const token = jwt.sign({ id: user._id }, jwtSecret);
 
-export function generateToken(user: UserType) {
-  return `JWT ${jwt.sign({ id: user._id }, jwtSecret)}`;
+  user.tokens = user.tokens.concat({ token });
+
+  await user.save();
+
+  return token;
 }
