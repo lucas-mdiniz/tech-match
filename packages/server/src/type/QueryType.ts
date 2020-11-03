@@ -4,8 +4,9 @@ import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from 'gra
 import { connectionArgs, fromGlobalId } from 'graphql-relay';
 
 import UserType, { UserConnection } from '../modules/user/UserType';
+import ProjectType, {ProjectConnection} from '../modules/project/ProjectType';
 import { nodeField } from '../interface/NodeInterface';
-import { UserLoader } from '../loader';
+import { UserLoader, ProjectLoader } from '../loader';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -37,6 +38,16 @@ export default new GraphQLObjectType({
         },
       },
       resolve: (obj, args, context) => UserLoader.loadUsers(context, args),
+    },
+    projects: {
+      type: ProjectConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        search: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (obj, args, context) => ProjectLoader.loadProjects(context, args),
     },
   }),
 });
