@@ -20,12 +20,15 @@ export default class Project {
 
   lookingFor: string | null | undefined;
 
+  owner: ObjectId;
+
   constructor(data: IProject, { user }: GraphQLContext) {
     this.id = data._id;
     this._id = data._id;
     this.title = data.title;
     this.description = data.description;
     this.lookingFor = data.lookingFor;
+    this.owner = data.owner;
   }
 }
 
@@ -54,9 +57,10 @@ export const clearAndPrimeCache = (context: GraphQLContext, id: Types.ObjectId, 
 type ProjectArgs = ConnectionArguments & {
   search?: string;
 };
+
 export const loadProjects = async (context: GraphQLContext, args: ProjectArgs) => {
-  const where = args.search ? { name: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};
-  const projects = ProjectModel.find(where, { _id: 1 }).sort({ createdAt: -1 });
+  const where = args.search ? { title: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};
+  const projects = ProjectModel.find(where).sort({ createdAt: -1 });
 
   return connectionFromMongoCursor({
     cursor: projects,
