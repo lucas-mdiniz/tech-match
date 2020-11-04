@@ -1,7 +1,7 @@
 import {GraphQLNonNull, GraphQLObjectType, GraphQLString} from 'graphql';
 import {globalIdField} from 'graphql-relay';
 
-import {nodeInterface} from '../../interface/NodeInterface';
+import {nodeInterface, registerType} from '../../interface/NodeInterface';
 import { connectionDefinitions } from '../../core/connection/CustomConnectionType';
 
 
@@ -21,6 +21,8 @@ const ProjectType = new GraphQLObjectType({
   }),
   interfaces: () => [nodeInterface],
 });
+
+registerType(ProjectType);
 
 export default ProjectType;
 

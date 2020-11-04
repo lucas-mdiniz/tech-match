@@ -1,27 +1,35 @@
 import mongoose, {Document, Model, Schema} from 'mongoose';
 
-const schema = new Schema({
-  title: {
-    type: String,
-    require: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  lookingFor: {
-    type: String,
-    validate: {
-      validator:(role: string) => ['designer', 'developer'].includes(role)
+const schema = new Schema(
+  {
+    title: {
+      type: String,
+      require: true
     },
-    message: () => `Tag must be a designer or a developer`
+    description: {
+      type: String,
+      required: true
+    },
+    lookingFor: {
+      type: String,
+      validate: {
+        validator:(role: string) => ['designer', 'developer'].includes(role)
+      },
+      message: () => `Tag must be a designer or a developer`
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    }
   },
-  owner: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+  {
+    timestamps: {
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt',
+    }
   }
-})
+)
 
 export interface IProject extends Document{
   title: string;
