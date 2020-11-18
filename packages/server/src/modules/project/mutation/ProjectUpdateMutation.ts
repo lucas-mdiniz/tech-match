@@ -5,7 +5,7 @@ import {ProjectConnection} from '../ProjectType';
 import ProjectModel from '../ProjectModel';
 import * as ProjectLoader from '../ProjectLoader';
 
-export default mutationWithClientMutationId({
+const mutation = mutationWithClientMutationId({
   name: 'ProjectUpdate',
   inputFields: {
     title: {
@@ -22,12 +22,6 @@ export default mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async (args, context) => {
-    if(!context.user){
-      return {
-        error: 'User not logged in'
-      }
-    }
-
     const {title, description, lookingFor, id} = args;
     
     const mongoId = fromGlobalId(id).id;
@@ -60,7 +54,6 @@ export default mutationWithClientMutationId({
     projectEdge: {
       type: ProjectConnection.edgeType,
       resolve: async ({id}, _, context) => {
-    
         const updatedProject = await ProjectLoader.load(context, id);
 
         if(!updatedProject){
@@ -78,4 +71,12 @@ export default mutationWithClientMutationId({
       resolve: ({error}) => error
     }
   }
-})
+});
+
+export default {
+  ...mutation,
+  extensions: {
+    ...mutation.extensions,
+    authenticatedOnly: true,
+  },
+};

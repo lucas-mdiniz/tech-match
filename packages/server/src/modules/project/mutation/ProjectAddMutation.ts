@@ -5,7 +5,7 @@ import {ProjectConnection} from '../ProjectType';
 import ProjectModel from '../ProjectModel';
 import * as ProjectLoader from '../ProjectLoader';
 
-export default mutationWithClientMutationId({
+const mutation = mutationWithClientMutationId({
   name: "ProjectAdd",
   inputFields: {
     title:{
@@ -19,12 +19,7 @@ export default mutationWithClientMutationId({
     }
   }, 
   mutateAndGetPayload: async ({title, description, lookingFor}, context) => {
-    if(!context.user){
-      return {
-        error: 'User not logged in'
-      }
-    }    
-
+    
     const owner = context.user._id;
 
     const newProject = await new ProjectModel({
@@ -62,5 +57,12 @@ export default mutationWithClientMutationId({
       }
     }
   }
+});
 
-})
+export default {
+  ...mutation,
+  extensions: {
+    ...mutation.extensions,
+    authenticatedOnly: true,
+  },
+};

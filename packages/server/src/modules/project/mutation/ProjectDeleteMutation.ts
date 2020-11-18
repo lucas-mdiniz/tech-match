@@ -3,7 +3,7 @@ import {mutationWithClientMutationId, fromGlobalId} from 'graphql-relay';
 
 import ProjectModel from '../ProjectModel';
 
-export default mutationWithClientMutationId({
+const mutation = mutationWithClientMutationId({
   name: 'ProjectDelete',
   inputFields: {
     id:{
@@ -11,12 +11,6 @@ export default mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async ({id}, context) => {
-    if(!context.user){
-      return {
-        success: null,
-        error: 'User not logged in'
-      }
-    }
 
     const mongoId = fromGlobalId(id).id;
 
@@ -47,4 +41,12 @@ export default mutationWithClientMutationId({
       resolve: ({error}) => error
     }
   }
-})
+});
+
+export default {
+  ...mutation,
+  extensions: {
+    ...mutation.extensions,
+    authenticatedOnly: true,
+  },
+};
