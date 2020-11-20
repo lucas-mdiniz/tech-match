@@ -1,10 +1,11 @@
 import { GraphQLResolveInfo } from 'graphql';
 
 interface GraphQLMutationConfig {
-  extensions: object
+  [key: string]: any;
+  authenticatedOnly?: boolean
 }
 
-export function getMutationFields(info: GraphQLResolveInfo, mutationName: string): GraphQLMutationConfig | null {
+export function getExtensions(info: GraphQLResolveInfo, mutationName: string): GraphQLMutationConfig | null {
   const mutationType = info.schema.getMutationType();
   if (!mutationType) {
     return null;
@@ -12,5 +13,11 @@ export function getMutationFields(info: GraphQLResolveInfo, mutationName: string
 
   const fields = mutationType.getFields();
 
-  return fields[mutationName];
+  const {extensions} = fields[mutationName];
+  
+  if (!extensions){
+    return null;
+  }
+
+  return extensions;
 }
