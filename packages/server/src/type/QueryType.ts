@@ -4,7 +4,7 @@ import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from 'gra
 import { connectionArgs, fromGlobalId } from 'graphql-relay';
 
 import UserType, { UserConnection } from '../modules/user/UserType';
-import ProjectType, {ProjectConnection} from '../modules/project/ProjectType';
+import {ProjectConnection} from '../modules/project/ProjectType';
 import { nodeField } from '../interface/NodeInterface';
 import { UserLoader, ProjectLoader } from '../loader';
 
@@ -24,7 +24,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: (obj, args, context) => {
+      resolve: (root, args, context) => {
         const { id } = fromGlobalId(args.id);
         return UserLoader.load(context, id);
       },
@@ -37,7 +37,7 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: (obj, args, context) => UserLoader.loadUsers(context, args),
+      resolve: (root, args, context) => UserLoader.loadUsers(context, args),
     },
     projects: {
       type: ProjectConnection.connectionType,
@@ -47,7 +47,7 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: (obj, args, context) => ProjectLoader.loadProjects(context, args),
+      resolve: (root, args, context) => ProjectLoader.loadProjects(context, args),
     },
   }),
 });
