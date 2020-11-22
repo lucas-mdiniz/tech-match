@@ -14,6 +14,8 @@ export const createUser = async (payload = {}) => {
     email: `user-${n}@example.com`,
     password: '123456',
     active: true,
+    role: 'developer',
+    tokens: [],
     ...payload,
   }).save();
 };

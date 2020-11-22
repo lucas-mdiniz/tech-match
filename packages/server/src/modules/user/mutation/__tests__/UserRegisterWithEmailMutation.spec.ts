@@ -25,11 +25,13 @@ it('should not register with an existing email', async () => {
       $name: String!
       $email: String!
       $password: String!
+      $role: String!
     ) {
       UserRegisterWithEmail(input: {
         name: $name
         email: $email
         password: $password
+        role: $role
       }) {
         token
         error
@@ -43,9 +45,11 @@ it('should not register with an existing email', async () => {
     name: 'Test',
     email: user.email,
     password: '123',
+    role: 'developer',
   };
 
   const result = await graphql(schema, query, rootValue, context, variables);
+
   expect(result.data.UserRegisterWithEmail.token).toBe(null);
   expect(result.data.UserRegisterWithEmail.error).toBe('Email already in use');
 });
@@ -59,11 +63,13 @@ it('should create a new user when parameters are valid', async () => {
       $name: String!
       $email: String!
       $password: String!
+      $role: String!
     ) {
       UserRegisterWithEmail(input: {
         name: $name
         email: $email
         password: $password
+        role: $role
       }) {
         token
         error
@@ -77,6 +83,7 @@ it('should create a new user when parameters are valid', async () => {
     name: 'Test',
     email,
     password: '123',
+    role: 'developer',
   };
 
   const result = await graphql(schema, query, rootValue, context, variables);
