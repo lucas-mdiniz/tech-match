@@ -15,6 +15,7 @@ const mongooseOptions = {
   autoReconnect: false,
   connectTimeoutMS: 10000,
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 };
 
 // Just in case want to debug something

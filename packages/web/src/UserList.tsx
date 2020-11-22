@@ -35,6 +35,7 @@ const UserList = ({ query }: Props) => {
         <Card key={edge!.node.id}>
           <span>ID: {edge ? edge.node.id : ''}</span>
           <span>User: {edge ? edge.node.name : ''}</span>
+          <span>Email: {edge ? edge.node.email : ''}</span>
         </Card>
       ))}
     </div>

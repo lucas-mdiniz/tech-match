@@ -39,8 +39,8 @@ describe('<UserList />', () => {
   it('should render success UserList', async () => {
     const { getByText } = render(<UserListDefault />);
 
-    Environment.mock.resolveMostRecentOperation(operation =>{
-      return MockPayloadGenerator.generate(operation, {
+    Environment.mock.resolveMostRecentOperation(operation => 
+      MockPayloadGenerator.generate(operation, {
         PageInfo() {
           return {
             hasNextPage: false,
@@ -49,28 +49,30 @@ describe('<UserList />', () => {
             endCursor: "YXJyYXljb25uZWN0aW9uOjE="
           }
         },
-        UserEdge() {
-          return [
-            {
-              cursor: "YXJyYXljb25uZWN0aW9uOjA=",
-              node: {
-                email: "example.example@gmail.com",
-                id: "Q2xpZW50OjE=",
-                name: "Adhis Yudha",
+        UserConnection() {
+          return {
+            edges: [
+              {
+                cursor: "YXJyYXljb25uZWN0aW9uOjA=",
+                node: {
+                  email: "example.example@gmail.com",
+                  id: "Q2xpZW50OjE=",
+                  name: "Adhis Yudha",
+                }
+              },
+              {
+                cursor: "YXJyYXljb25uZWN0aW9uOjE=",
+                node: {
+                  email: "test.test@gmail.com",
+                  id: "Q2xpZW50OjI=",
+                  name: "Bangkit Ilham",
+                }
               }
-            },
-            {
-              cursor: "YXJyYXljb25uZWN0aW9uOjE=",
-              node: {
-                email: "test.test@gmail.com",
-                id: "Q2xpZW50OjI=",
-                name: "Bangkit Ilham",
-              }
-            }
-          ]
+            ]
+          }
         }
       })
-    });
+    );
     
     expect(getByText('ID: Q2xpZW50OjE=')).toBeTruthy();
     expect(getByText('User: Adhis Yudha')).toBeTruthy();

@@ -24,7 +24,7 @@ class MongoDbEnvironment extends NodeEnvironment {
     await super.setup();
     console.error('\n# MongoDB Environment Setup #\n');
     await this.mongod.start();
-    this.global.__MONGO_URI__ = await this.mongod.getConnectionString();
+    this.global.__MONGO_URI__ = await this.mongod.getUri();
     this.global.__MONGO_DB_NAME__ = await this.mongod.getDbName();
     this.global.__COUNTERS__ = {
       user: 0,
