@@ -23,13 +23,14 @@ const mutation = mutationWithClientMutationId({
   },
   mutateAndGetPayload: async (args, context) => {
     const {title, description, lookingFor, id} = args;
-    
+
     const mongoId = fromGlobalId(id).id;
 
     //update only if field is not null and is one of description, title or lookingFor
     const allowedUpdates = {title, description, lookingFor};
 
-    (Object.keys(allowedUpdates) as Array<keyof typeof allowedUpdates>).forEach((arg) =>
+    ((Object.keys(allowedUpdates) as Array<keyof typeof allowedUpdates>))
+    .forEach((arg) =>
       !allowedUpdates[arg] && delete allowedUpdates[arg]
     );
 
