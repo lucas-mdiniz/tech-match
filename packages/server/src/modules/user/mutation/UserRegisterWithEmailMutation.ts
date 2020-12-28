@@ -32,12 +32,12 @@ export default mutationWithClientMutationId({
       };
     }
 
-    const validateRole = ['designer', 'developer'].includes(role.toLowerCase().trim())
-    
-    if(!validateRole){
+    const validateRole = ['designer', 'developer'].includes(role.toLowerCase().trim());
+
+    if (!validateRole) {
       return {
-        error: 'Role must be a designer or a developer'
-      }
+        error: 'Role must be a designer or a developer',
+      };
     }
 
     user = new UserModel({

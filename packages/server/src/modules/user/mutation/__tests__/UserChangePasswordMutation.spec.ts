@@ -71,7 +71,7 @@ it('should not change password if oldPassword is invalid', async () => {
   const result = await graphql(schema, query, rootValue, context, variables);
 
   expect(result.errors).toBe(undefined);
-  expect(result.data.UserChangePassword.error).toBe('User not authenticated');
+  expect(result.data?.UserChangePassword.error).toBe('User not authenticated');
 });
 
 it('should change password if oldPassword is correct', async () => {
@@ -102,5 +102,5 @@ it('should change password if oldPassword is correct', async () => {
 
   const result = await graphql(schema, query, rootValue, context, variables);
 
-  expect(result.data.UserChangePassword.error).toBe(null);
+  expect(result.data?.UserChangePassword.error).toBe(null);
 });

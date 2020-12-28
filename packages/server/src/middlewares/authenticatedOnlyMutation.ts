@@ -1,28 +1,27 @@
+import { GraphQLResolveInfo } from 'graphql';
 import { getExtensions } from './utils';
-import {GraphQLResolveInfo} from 'graphql'
-import {GraphQLContext, Resolve} from '../TypeDefinition';
-
+import { GraphQLContext, Resolve } from '../TypeDefinition';
 
 export default async function authenticatedOnlyMutation<TSource, TArgs = { [key: string]: any }>(
-  resolve: Resolve, 
-  root: TSource, 
-  args: TArgs, 
-  context: GraphQLContext, 
-  info: GraphQLResolveInfo
+  resolve: Resolve,
+  root: TSource,
+  args: TArgs,
+  context: GraphQLContext,
+  info: GraphQLResolveInfo,
 ) {
   const extensions = getExtensions(info, info.fieldName);
 
-  if(!extensions){
+  if (!extensions) {
     return await resolve(root, args, context, info);
   }
 
-  const {authenticatedOnly} = extensions;
+  const { authenticatedOnly } = extensions;
 
-  if(authenticatedOnly){
-    if(!context.user){
+  if (authenticatedOnly) {
+    if (!context.user) {
       return {
-        error: 'User not logged in'
-      }
+        error: 'User not logged in',
+      };
     }
 
     return await resolve(root, args, context, info);

@@ -8,12 +8,12 @@ interface ICurrentToken {
 
 export default mutationWithClientMutationId({
   name: 'UserLogoutMutation',
-  mutateAndGetPayload: async (_, {user, req}) =>{
-    const token = req.header.authorization.substring(7);
-
-    if(!user){
-      return {error: 'User not logged in.'}
+  mutateAndGetPayload: async (_, { user, req }) =>{
+    if (!user) {
+      return { error: 'User not logged in.' };
     }
+
+    const token = req.header.authorization.substring(7);
 
     try{
       user.tokens = user.tokens.filter((currentToken:ICurrentToken) => {
