@@ -50,8 +50,8 @@ it('should not register with an existing email', async () => {
 
   const result = await graphql(schema, query, rootValue, context, variables);
 
-  expect(result.data.UserRegisterWithEmail.token).toBe(null);
-  expect(result.data.UserRegisterWithEmail.error).toBe('Email already in use');
+  expect(result.data?.UserRegisterWithEmail.token).toBe(null);
+  expect(result.data?.UserRegisterWithEmail.error).toBe('Email already in use');
 });
 
 it('should create a new user when parameters are valid', async () => {
@@ -87,8 +87,8 @@ it('should create a new user when parameters are valid', async () => {
   };
 
   const result = await graphql(schema, query, rootValue, context, variables);
-  expect(result.data.UserRegisterWithEmail.token).not.toBe(null);
-  expect(result.data.UserRegisterWithEmail.error).toBe(null);
+  expect(result.data?.UserRegisterWithEmail.token).not.toBe(null);
+  expect(result.data?.UserRegisterWithEmail.error).toBe(null);
 
   const user = await UserModel.findOne({
     email,
