@@ -3,9 +3,10 @@
   "description": "Entria Web",
   "version": "1.0.0",
   "dependencies": {
+    "history": "^5.0.0",
     "hoist-non-react-statics": "^3.0.1",
-    "react": "^0.0.0-experimental-4ead6b530",
-    "react-dom": "^0.0.0-experimental-4ead6b530",
+    "react": "0.0.0-experimental-8af27aeed",
+    "react-dom": "0.0.0-experimental-8af27aeed",
     "react-relay": "^0.0.0-experimental-183bdd28",
     "rebass": "^4.0.2",
     "relay-runtime": "^10.0.1",

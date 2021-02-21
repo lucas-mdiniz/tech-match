@@ -1,7 +1,4 @@
-import * as React from 'react';
-import { graphql, createFragmentContainer } from 'react-relay';
-import { createQueryRendererModern } from './relay';
-import { Flex } from 'rebass';
+import React from 'react';
 import { alignItems, flexDirection, justifyContent, space } from 'styled-system';
 import styled from 'styled-components';
 
@@ -27,42 +24,12 @@ type Props = {
   query:  UserList_query
 }
 const UserList = ({ query }: Props) => {
-  const { users } = query;
 
   return (
     <div>
-      {users!.edges.map((edge) => (
-        <Card key={edge!.node.id}>
-          <span>ID: {edge ? edge.node.id : ''}</span>
-          <span>User: {edge ? edge.node.name : ''}</span>
-          <span>Email: {edge ? edge.node.email : ''}</span>
-        </Card>
-      ))}
+      teste
     </div>
   )
 };
 
-const UserListFragmentContainer = createFragmentContainer(UserList, {
-  query: graphql`
-    fragment UserList_query on Query {
-      users(first: 10) @connection(key: "UserList_users", filters: []) {
-        edges {
-          node {
-            id
-            name
-            email
-            active
-          }
-        }
-      }
-    }
-  `
-});
-
-export default createQueryRendererModern(UserListFragmentContainer, UserList, {
-  query: graphql`
-    query UserListQuery {
-      ...UserList_query
-    }
-  `,
-});
+export default UserList;

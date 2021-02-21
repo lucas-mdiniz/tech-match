@@ -1,5 +1,5 @@
-import {mutationWithClientMutationId} from 'graphql-relay';
-import {GraphQLString} from 'graphql';
+import { mutationWithClientMutationId } from 'graphql-relay';
+import { GraphQLString } from 'graphql';
 
 interface ICurrentToken {
   token: string,
@@ -8,28 +8,26 @@ interface ICurrentToken {
 
 export default mutationWithClientMutationId({
   name: 'UserLogoutMutation',
-  mutateAndGetPayload: async (_, { user, req }) =>{
+  mutateAndGetPayload: async (_, { user, req }) => {
     if (!user) {
       return { error: 'User not logged in.' };
     }
 
     const token = req.header.authorization.substring(7);
 
-    try{
-      user.tokens = user.tokens.filter((currentToken:ICurrentToken) => {
-        return currentToken.token !== token
-      });
+    try {
+      user.tokens = user.tokens.filter((currentToken:ICurrentToken) => currentToken.token !== token);
 
       await user.save();
 
       return {
-        success: "Logged out"
-      }
+        success: 'Logged out',
+      };
     } catch {
-      return {error: "Something went wrong, try again later"}
+      return { error: 'Something went wrong, try again later' };
     }
-  }, 
-  inputFields:{},
+  },
+  inputFields: {},
   outputFields: {
     message: {
       type: GraphQLString,
@@ -39,5 +37,5 @@ export default mutationWithClientMutationId({
       type: GraphQLString,
       resolve: ({ error }) => error,
     },
-  }
-})
+  },
+});

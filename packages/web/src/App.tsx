@@ -1,19 +1,13 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 import RelayEnvironment from './relay/Environment';
-import ErrorBoundary from './ErrorBoundary';
 import { hot } from 'react-hot-loader';
-
-const UserList = React.lazy(() => import('./UserList'));
+import { RouterRenderer } from '@workshop/route';
 
 function App() {
   return (
     <RelayEnvironmentProvider environment={RelayEnvironment}>
-      <ErrorBoundary>
-        <Suspense fallback={'Loading...'}>
-          <UserList />
-        </Suspense>
-      </ErrorBoundary>
+        <RouterRenderer />
     </RelayEnvironmentProvider>
   );
 }
