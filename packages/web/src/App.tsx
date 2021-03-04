@@ -1,15 +1,16 @@
 import React from 'react';
-import { RelayEnvironmentProvider } from 'react-relay/hooks';
-import RelayEnvironment from './relay/Environment';
-import { hot } from 'react-hot-loader';
 import { RouterRenderer } from '@workshop/route';
+
+import Providers from './Providers';
+import GlobalStyle from './GlobalStyle';
 
 function App() {
   return (
-    <RelayEnvironmentProvider environment={RelayEnvironment}>
-        <RouterRenderer />
-    </RelayEnvironmentProvider>
+    <Providers>
+        <GlobalStyle/>
+        <RouterRenderer/>
+    </Providers>
   );
 }
 
-export default hot(module)(App);
+export default App;

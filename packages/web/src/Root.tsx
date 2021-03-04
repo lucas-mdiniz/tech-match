@@ -6,11 +6,14 @@ type Props = {
     rootQuery: any;
   };
 };
-const UserList = ({ children, prepared }: Props) => {
 
+
+const Root = ({ children }: Props) => {
   return (
-    <Suspense fallback={'Loading children...'}>{children}</Suspense>
+    <>
+      {children}
+    </>
   )
 };
 
-export default UserList;
+export default Root;
