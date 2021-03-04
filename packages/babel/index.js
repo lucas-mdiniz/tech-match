@@ -10,7 +10,7 @@ module.exports = {
     '@babel/preset-typescript',
   ],
   plugins: [
-    'react-hot-loader/babel',
+    //'react-hot-loader/babel',
     'babel-plugin-styled-components',
     [
       'relay',

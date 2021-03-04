@@ -89,6 +89,7 @@ export class Resource {
  * @param {*} loader A method to load the resource's data if necessary
  */
 export default function JSResource(moduleId: string, loader: Loader) {
+
   let resource = resourceMap.get(moduleId);
   if (resource == null) {
     resource = new Resource(loader);

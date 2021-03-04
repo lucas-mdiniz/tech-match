@@ -5,7 +5,6 @@ import { History, Location } from 'history';
  * Match the current location to the corresponding route entry.
  */
 const matchRoute = (routes: RouteConfig[], location: Location) => {
-
   const matchedRoutes = matchRoutes(routes, location.pathname);
   if (!Array.isArray(matchedRoutes) || matchedRoutes.length === 0) {
     throw new Error('No route for ' + location.pathname);
@@ -37,6 +36,7 @@ const prepareMatches = <Params extends { [K in keyof Params]?: string }>(matches
  * The router watches for changes to the current location via the `history` package, maps the
  * location to the corresponding route entry, and then preloads the code and data for the route.
  */
+
 export default function createRouter(routes: RouteConfig[], history: History) {
   // Initialize history
   // const history = createBrowserHistory(options);
@@ -62,6 +62,7 @@ export default function createRouter(routes: RouteConfig[], history: History) {
     if (location.pathname === currentEntry.location.pathname) {
       return;
     }
+
     const matches = matchRoute(routes, location);
     const entries = prepareMatches(matches);
     const nextEntry = {
@@ -114,4 +115,3 @@ export type RoutingContextType<Params extends { [K in keyof Params]?: string }> 
   preloadCode: (pathname: string) => void;
   subscribe: (cb: () => void) => DisposeFn;
 };
-

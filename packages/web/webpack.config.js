@@ -4,11 +4,12 @@ const webpack = require('webpack');
 const { WebpackPluginServe: Serve } = require('webpack-plugin-serve');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const outputPath = resolve(__dirname, 'dist');
 
-const entry = isDev ? ['./src/index.tsx', 'webpack-plugin-serve/client'] : './src/index.tsx';
+const entry = isDev ? ['./src', 'webpack-plugin-serve/client'] : './src/index.tsx';
 
 const plugins = [
   new HtmlWebpackPlugin({
@@ -22,6 +23,7 @@ const plugins = [
 ];
 
 if (isDev) {
+  console.log('teste');
   plugins.push(
     new Serve({
       hmr: true,
@@ -29,6 +31,7 @@ if (isDev) {
       static: [outputPath],
     }),
   );
+  plugins.push(new ReactRefreshPlugin());
 } else {
   plugins.push(new MiniCssExtractPlugin());
 }
@@ -45,7 +48,7 @@ module.exports = {
       {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: ['babel-loader']
       },
       {
         test: /\.css$/,

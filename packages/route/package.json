@@ -2,8 +2,11 @@
   "name": "@workshop/route",
   "version": "1.0.0",
   "dependencies": {
+    "history": "^5.0.0",
+    "react": "0.0.0-experimental-8af27aeed",
     "react-router-config": "^5.0.1",
-    "react-router-dom": "^5.0.1"
+    "react-router-dom": "^5.0.1",
+    "styled-components": "4.4.1"
   },
   "main": "src/index.tsx"
 }

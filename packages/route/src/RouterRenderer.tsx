@@ -1,3 +1,4 @@
+
 import React, { useEffect, unstable_useTransition as useTransition, Suspense, useState } from 'react';
 import { match } from 'react-router';
 import styled, { keyframes } from 'styled-components';
@@ -29,6 +30,7 @@ const Pending = styled.div`
  * that entry.
  */
 const RouterRenderer = () => {
+
   // Access the router
   const router = useRoutingContext();
   // Improve the route transition UX by delaying transitions: show the previous route entry
@@ -132,6 +134,7 @@ type Props = {
   routeData: match;
   prepared: object;
 };
+
 const RouteComponent = (props: Props) => {
   const Component = props.component.read();
 
