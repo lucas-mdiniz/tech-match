@@ -82,7 +82,7 @@ const Login = () => {
               <TextDivider color="secondaryText"><span>OR</span></TextDivider>
               <Stack height="35px" />
               <LinkButton to={"/register"} width="100%" color="icons" backgroundColor="primaryDark" fontWeight="bold" fontSize="1">
-                  Register
+                  Registersss
               </LinkButton>
             </Form>
           </Formik>

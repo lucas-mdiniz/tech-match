@@ -23,7 +23,6 @@ const plugins = [
 ];
 
 if (isDev) {
-  console.log('teste');
   plugins.push(
     new Serve({
       hmr: true,
@@ -48,7 +47,14 @@ module.exports = {
       {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: [{
+          loader: require.resolve('babel-loader'),
+            options: {
+              plugins: [
+                isDev && require.resolve('react-refresh/babel'),
+              ].filter(Boolean),
+            }
+        }]
       },
       {
         test: /\.css$/,
