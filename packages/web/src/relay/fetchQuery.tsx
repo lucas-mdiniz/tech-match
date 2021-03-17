@@ -3,6 +3,7 @@ import  { Variables, UploadableMap } from 'relay-runtime';
 import  { RequestNode } from 'relay-runtime';
 
 import { handleData, getRequestBody, getHeaders, isMutation } from './helpers';
+import { getToken } from '../components/auth/security';
 import fetchWithRetries from './fetchWithRetries';
 
 export const GRAPHQL_URL = 'http://localhost:5000/graphql';
@@ -12,8 +13,10 @@ export const GRAPHQL_URL = 'http://localhost:5000/graphql';
 const fetchQuery = async (request: RequestNode, variables: Variables, uploadables: UploadableMap) => {
   try {
     const body = getRequestBody(request, variables, uploadables);
+    const token = getToken('token');
     const headers = {
       ...getHeaders(uploadables),
+      Authentication: `Bearer ${token}`
     };
 
     const response = await fetchWithRetries(GRAPHQL_URL, {

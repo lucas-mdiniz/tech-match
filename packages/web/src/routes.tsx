@@ -1,3 +1,6 @@
+import { loadQuery } from 'react-relay/hooks';
+import { Environment } from './relay';
+
 import { JSResource } from '@workshop/route';
 
 export type Route = {
@@ -10,15 +13,29 @@ export type Route = {
 
 export const routes: Route[] = [
   {
-    component: JSResource('Root', () => import('./Root')),
+    component: JSResource('FeedRoot', () => import('./components/feed/FeedRoot')),
+    path: '/',
+    exact: false,
+    prepare: () => {
+      const FeedQuery = require('./components/feed/__generated__/FeedRootQuery.graphql');   
+
+
+      return {
+        feedQuery: loadQuery(
+          Environment, 
+          FeedQuery, 
+          {}, 
+          {
+          fetchPolicy: 'network-only',
+        })
+      }
+    },
+  },
+  {
+    component: JSResource('AuthRoot', () => import('./components/auth/AuthRoot')),
     path: '/',
     exact: false,
     routes: [
-      {
-        path: '/',
-        exact: true,
-        component: JSResource('UserList', () => import('./UserList'))
-      },
       {
         path: '/login',
         exact: true,
@@ -29,6 +46,6 @@ export const routes: Route[] = [
         exact: true,
         component: JSResource('Register', () => import('./components/auth/Register'))
       }
-    ],
-  },
+    ]
+  }
 ];

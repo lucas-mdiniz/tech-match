@@ -1,30 +1,3 @@
-type Mutation {
-  UserChangePassword(input: UserChangePasswordInput!): UserChangePasswordPayload
-  UserLoginWithEmail(input: UserLoginWithEmailInput!): UserLoginWithEmailPayload
-  UserRegisterWithEmail(input: UserRegisterWithEmailInput!): UserRegisterWithEmailPayload
-}
-
-"""An object with an ID"""
-interface Node {
-  """The id of the object."""
-  id: ID!
-}
-
-"""Information about pagination in a connection."""
-type PageInfoExtended {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
-}
-
 """The root of all... queries"""
 type Query {
   """Fetches an object given its ID"""
@@ -35,10 +8,13 @@ type Query {
   me: User
   user(id: ID!): User
   users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
+  projects(after: String, first: Int, before: String, last: Int, search: String): ProjectConnection
 }
 
-type Subscription {
-  UserAdded: UserAddedPayload
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
 }
 
 """User data"""
@@ -49,24 +25,7 @@ type User implements Node {
   name: String
   email: String
   active: Boolean
-}
-
-type UserAddedPayload {
-  userEdge: UserEdge
-}
-
-input UserChangePasswordInput {
-  oldPassword: String!
-
-  """user new password"""
-  password: String!
-  clientMutationId: String
-}
-
-type UserChangePasswordPayload {
-  error: String
-  me: User
-  clientMutationId: String
+  role: String
 }
 
 """A connection to a list of items."""
@@ -95,6 +54,21 @@ type UserConnection {
   edges: [UserEdge]!
 }
 
+"""Information about pagination in a connection."""
+type PageInfoExtended {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
 """An edge in a connection."""
 type UserEdge {
   """The item at the end of the edge"""
@@ -104,8 +78,69 @@ type UserEdge {
   cursor: String!
 }
 
-input UserLoginWithEmailInput {
-  email: String!
+"""A connection to a list of items."""
+type ProjectConnection {
+  """Number of items in this connection"""
+  count: Int!
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+    This allows a client to fetch the first five objects by passing "5" as the
+    argument to "first", then fetch the total count so it could display "5 of 83",
+    for example.
+  """
+  totalCount: Int!
+
+  """Offset from start"""
+  startCursorOffset: Int!
+
+  """Offset till end"""
+  endCursorOffset: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfoExtended!
+
+  """A list of edges."""
+  edges: [ProjectEdge]!
+}
+
+"""An edge in a connection."""
+type ProjectEdge {
+  """The item at the end of the edge"""
+  node: Project!
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Project implements Node {
+  """The ID of an object"""
+  id: ID!
+  title: String!
+  description: String!
+  lookingFor: String!
+}
+
+type Mutation {
+  UserChangePassword(input: UserChangePasswordInput!): UserChangePasswordPayload
+  UserLoginWithEmail(input: UserLoginWithEmailInput!): UserLoginWithEmailPayload
+  UserRegisterWithEmail(input: UserRegisterWithEmailInput!): UserRegisterWithEmailPayload
+  UserLogout(input: UserLogoutMutationInput!): UserLogoutMutationPayload
+  ProjectAddMutation(input: ProjectAddInput!): ProjectAddPayload
+  ProjectDeleteMutation(input: ProjectDeleteInput!): ProjectDeletePayload
+  ProjectUpdateMutation(input: ProjectUpdateInput!): ProjectUpdatePayload
+}
+
+type UserChangePasswordPayload {
+  error: String
+  me: User
+  clientMutationId: String
+}
+
+input UserChangePasswordInput {
+  oldPassword: String!
+
+  """user new password"""
   password: String!
   clientMutationId: String
 }
@@ -116,8 +151,7 @@ type UserLoginWithEmailPayload {
   clientMutationId: String
 }
 
-input UserRegisterWithEmailInput {
-  name: String!
+input UserLoginWithEmailInput {
   email: String!
   password: String!
   clientMutationId: String
@@ -127,4 +161,68 @@ type UserRegisterWithEmailPayload {
   token: String
   error: String
   clientMutationId: String
+}
+
+input UserRegisterWithEmailInput {
+  name: String!
+  email: String!
+  password: String!
+  role: String!
+  clientMutationId: String
+}
+
+type UserLogoutMutationPayload {
+  message: String
+  error: String
+  clientMutationId: String
+}
+
+input UserLogoutMutationInput {
+  clientMutationId: String
+}
+
+type ProjectAddPayload {
+  error: String
+  projectEdge: ProjectEdge
+  clientMutationId: String
+}
+
+input ProjectAddInput {
+  title: String!
+  description: String!
+  lookingFor: String
+  clientMutationId: String
+}
+
+type ProjectDeletePayload {
+  success: String
+  error: String
+  clientMutationId: String
+}
+
+input ProjectDeleteInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type ProjectUpdatePayload {
+  projectEdge: ProjectEdge
+  error: String
+  clientMutationId: String
+}
+
+input ProjectUpdateInput {
+  title: String
+  description: String
+  lookingFor: String
+  id: ID!
+  clientMutationId: String
+}
+
+type Subscription {
+  UserAdded: UserAddedPayload
+}
+
+type UserAddedPayload {
+  userEdge: UserEdge
 }
