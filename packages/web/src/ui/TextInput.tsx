@@ -22,13 +22,20 @@ const StyledField = styled(Field)`
 
 type Props = {
   name: string,
-  placeholder: string,
-  width: string
+  placeholder?: string,
+  width?: string,
+  type?: string,
+  autocomplete?: string
 }
 
-const TextInput = ({name, placeholder, width} : Props) => {
+const TextInput = ({name, placeholder, width, type, autocomplete} : Props) => {
   return(
-    <StyledField name={name} placeholder={placeholder} width={width}/>
+    <StyledField 
+      name={name} 
+      placeholder={placeholder} 
+      width={width} type={type} 
+      autoComplete={autocomplete} 
+    />
   )
 }
 

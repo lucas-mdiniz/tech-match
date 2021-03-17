@@ -1,11 +1,11 @@
 const webpack = require('webpack');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const WebpackNodeExternals = require('webpack-node-externals');
 const AutoReloadServerPlugin = require('auto-reload-webpack-plugin');
 
 const common = require('./webpack.common');
 
-module.exports = merge.smart(common, {
+module.exports = merge(common, {
   mode: 'development',
   watch: true,
   stats: 'errors-only',

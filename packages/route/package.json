@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "history": "^5.0.0",
-    "react": "0.0.0-experimental-8af27aeed",
+    "react": "^0.0.0-experimental-73e900b0e",
     "react-router-config": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "styled-components": "4.4.1"

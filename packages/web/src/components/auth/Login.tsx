@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMutation } from  'react-relay/hooks';
 
 import LoginIllustration from './assets/illustration';
 
@@ -6,12 +7,16 @@ import { color } from 'styled-system';
 import { Flex, Box, Heading, Text } from 'rebass/styled-components';
 import { Formik, Form } from 'formik';
 import styled from 'styled-components';
-import {Link} from '@workshop/route';
+import {Link, useHistory} from '@workshop/route';
 
+import { updateToken } from './security';
 import TextInput from '../../ui/TextInput';
 import Stack from '../../ui/Stack';
 import Button from '../../ui/Button';
 import LinkButton from '../../ui/LinkButton';
+
+import {UserLoginWithEmail } from './UserLoginWithEmailMutation';
+import {UserLoginWithEmailMutation, UserLoginWithEmailMutationResponse} from './__generated__/UserLoginWithEmailMutation.graphql';
 
 const TextDivider = styled(Text)`
   position: relative;
@@ -43,14 +48,45 @@ const StyledLink = styled(Link)`
   display: block;
   text-decoration: none;
 `
+type formValues = {
+  email: string,
+  password: string
+}
 
 const Login = () => {
+  const [commit, isPending] = useMutation<UserLoginWithEmailMutation>(UserLoginWithEmail);
+  const history = useHistory();
+
   const initialValues = {
-    email: ''
+    email: '',
+    password: ''
   }
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = (values : formValues) => {
+    const config = {
+      variables: {
+        input: {
+          email: values.email,
+          password: values.password
+        }
+      },
+      onCompleted: ({ UserLoginWithEmail } : UserLoginWithEmailMutationResponse) => {
+        if(UserLoginWithEmail?.error){
+          console.log('erro');
+          return;
+        }
+
+        const token = UserLoginWithEmail?.token;
+
+        token && updateToken('token', token);
+        history.push('/');
+      }
+    }
+    commit(config);
+  }
+
+  if(isPending){
+    return <p>loading</p>
   }
 
   return (
@@ -69,9 +105,9 @@ const Login = () => {
           >
             <Form>
 
-              <TextInput name="email" placeholder="E-mail" width="100%" />
+              <TextInput name="email" placeholder="E-mail" width="100%" autocomplete="username"/>
               <Stack height="35px" />
-              <TextInput name="password" placeholder="Password" width="100%" />
+              <TextInput name="password" placeholder="Password" width="100%" type="password" autocomplete="current-password"/>
               <Stack height="35px" />
               <Button width="100%" type="submit" color="icons" backgroundColor="accent" fontWeight="bold" fontSize="1">
                   Login
@@ -82,7 +118,7 @@ const Login = () => {
               <TextDivider color="secondaryText"><span>OR</span></TextDivider>
               <Stack height="35px" />
               <LinkButton to={"/register"} width="100%" color="icons" backgroundColor="primaryDark" fontWeight="bold" fontSize="1">
-                  Registersss
+                  Register
               </LinkButton>
             </Form>
           </Formik>
