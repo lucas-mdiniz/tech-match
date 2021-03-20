@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const PageContainer = styled.div`
-  padding: 50px 35px;
+  width: 100%;
+  padding: 0 30px;
   max-width: 1200px;
   margin: 0 auto;
 `;

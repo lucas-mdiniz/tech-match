@@ -23,6 +23,7 @@ const theme = {
   },
   fontWeights: {
     body: 400,
+    medium: 500,
     heading: 700,
     bold: 700,
   },
