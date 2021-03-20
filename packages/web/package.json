@@ -13,7 +13,8 @@
     "rebass": "^4.0.7",
     "relay-runtime": "^11.0.0",
     "styled-components": "4.4.1",
-    "styled-system": "^5.1.5"
+    "styled-system": "^5.1.5",
+    "webpack-dev-server": "^3.11.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -65,8 +66,7 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0",
-    "webpack-nano": "^1.1.0",
-    "webpack-plugin-serve": "^1.1.0"
+    "webpack-nano": "^1.1.0"
   },
   "main": "index.js",
   "license": "MIT",
@@ -75,7 +75,7 @@
     "jest:lint": "jest --config jest-eslint.config.js",
     "now-build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "relay": "relay-compiler --watchman false --src ./src --schema ../server/data/schema.graphql --language typescript",
-    "start": "cross-env NODE_ENV=development webpack --config webpack.config.js",
+    "start": "cross-env NODE_ENV=development webpack serve --config webpack.config.js",
     "test": "jest --coverage",
     "ts:check": "tsc"
   }
