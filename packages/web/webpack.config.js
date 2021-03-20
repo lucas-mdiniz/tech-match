@@ -1,15 +1,12 @@
 const { resolve } = require('path');
 
 const webpack = require('webpack');
-const { WebpackPluginServe: Serve } = require('webpack-plugin-serve');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const outputPath = resolve(__dirname, 'dist');
-
-const entry = isDev ? ['./src', 'webpack-plugin-serve/client'] : './src/index.tsx';
 
 const plugins = [
   new HtmlWebpackPlugin({
@@ -23,20 +20,13 @@ const plugins = [
 ];
 
 if (isDev) {
-  plugins.push(
-    new Serve({
-      hmr: true,
-      historyFallback: true,
-      static: [outputPath],
-    }),
-  );
   plugins.push(new ReactRefreshPlugin());
 } else {
   plugins.push(new MiniCssExtractPlugin());
 }
 
 module.exports = {
-  entry,
+  entry: './src/index.tsx',
   mode: process.env.NODE_ENV,
   devtool: 'eval-cheap-source-map',
   resolve: {
@@ -120,11 +110,22 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    contentBase: outputPath,
+    disableHostCheck: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    hot: true,
+    hotOnly: false,
+    compress: true,
+    open: true,
+    port: '4000',
+  },
   output: {
     path: outputPath,
     publicPath: '/',
     filename: !isDev ? 'bundle.[contenthash].js' : 'bundle.js',
   },
   plugins,
-  watch: isDev,
 };
