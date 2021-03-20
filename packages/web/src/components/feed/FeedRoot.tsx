@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'react-relay'
 import { usePreloadedQuery } from 'react-relay/hooks';
 
+import Header from '../header/Header';
 import Feed from './Feed';
 import PageWrapper from '../../ui/PageWrapper';
 import PageContainer from '../../ui/PageContainer';
@@ -26,11 +27,12 @@ const FeedRoot = ({prepared} : Props) => {
   
 
   return (
-    <PageWrapper>
-      <PageContainer>
-        <Feed query={data} />
-      </PageContainer>
-    </PageWrapper>
+      <PageWrapper>
+        <Header />
+        <PageContainer>
+          <Feed query={data} />
+        </PageContainer>
+      </PageWrapper>
   );
 }
 

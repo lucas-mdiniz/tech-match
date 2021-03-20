@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { color, width, height } from 'styled-system';
 
-const LoadingSpinner = styled.div`
+interface LoadingSpinnerProps {
+  color: string;
+  height: string;
+  width: string;
+}
+
+const LoadingSpinner = styled.div<LoadingSpinnerProps>`
   border-radius: 50%;
   border: 3px solid;
   border-right-color: transparent;

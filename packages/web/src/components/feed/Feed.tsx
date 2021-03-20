@@ -37,7 +37,6 @@ const Feed = (props : Props) => {
 
   const { data, loadNext } = usePaginationFragment<ProjectsListPaginationQuery, _>(ProjectListFragment, props.query)
 
-
   const { pageInfo } = data.projects;
 
   const LoadingComponent = 
@@ -53,7 +52,7 @@ const Feed = (props : Props) => {
         hasMore = {pageInfo.hasNextPage}
         loader={LoadingComponent}
       > 
-        {data.projects?.edges.map(({ node }, index) =>
+        {data.projects?.edges.map(({ node }, index: number) =>
           <React.Fragment key={node.id}>
             <Project project={node} />
 
