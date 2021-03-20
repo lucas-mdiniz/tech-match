@@ -14,6 +14,6 @@ const rootNode = document.getElementById('root');
 ReactDOM.unstable_createRoot(rootNode).render(
   <RoutingContext.Provider value={router.context}>
     <App />
-  </RoutingContext.Provider>, document.getElementById('root')
+  </RoutingContext.Provider>
 );
 
