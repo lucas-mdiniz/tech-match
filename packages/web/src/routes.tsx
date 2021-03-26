@@ -15,7 +15,7 @@ export const routes: Route[] = [
   {
     component: JSResource('FeedRoot', () => import('./components/feed/FeedRoot')),
     path: '/',
-    exact: false,
+    exact: true,
     prepare: () => {
       const FeedQuery = require('./components/feed/__generated__/FeedRootQuery.graphql');   
 

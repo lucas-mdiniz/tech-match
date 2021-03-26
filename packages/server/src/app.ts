@@ -28,6 +28,7 @@ const JWT_KEY: string = process.env.JWT_KEY || '';
 app.keys = [JWT_KEY];
 
 const graphqlSettingsPerReq = async (req: Request) => {
+
   const { user } = await getUser(req.header.authorization);
 
   const AllLoaders: Loaders = loaders;

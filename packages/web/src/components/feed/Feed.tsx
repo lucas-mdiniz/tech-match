@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { graphql, usePaginationFragment } from 'react-relay/hooks';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import Project from './Project';
+import Project from './project/Project';
 import Stack from '../../ui/Stack';
 import LoadingSpinner from '../../ui/LoadingSpinner';  
 

@@ -8,6 +8,7 @@ const theme = {
   breakpoints: ['40em', '52em', '64em'],
   colors: {
     accent: '#3D9841',
+    alert: '#c80e00',
     primary: '#008074',
     primaryDark: '#004C44',
     primaryLight: '#B2DFDB',
