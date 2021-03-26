@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  body {
+  body, textarea, input, select {
     font-family: ${(props) => props.theme.fonts.body};
   }
   

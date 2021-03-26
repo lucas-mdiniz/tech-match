@@ -14,9 +14,10 @@ const fetchQuery = async (request: RequestNode, variables: Variables, uploadable
   try {
     const body = getRequestBody(request, variables, uploadables);
     const token = getToken('token');
+
     const headers = {
       ...getHeaders(uploadables),
-      Authentication: `Bearer ${token}`
+      authorization: token
     };
 
     const response = await fetchWithRetries(GRAPHQL_URL, {

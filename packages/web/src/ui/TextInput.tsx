@@ -1,41 +1,54 @@
 import React from 'react';
-import { Field } from 'formik';
+import { useField } from 'formik';
 import styled from 'styled-components';
-import { width } from 'styled-system';
+import { height, width, borderColor } from 'styled-system';
 
-const StyledField = styled(Field)`
+export const StyledField = styled.input`
   ${width}
-
-  height: 50px;
+  ${height}
+  
+  background: #fff;
   border-radius: 10px;
   padding: 10px;
   box-sizing: border-box;
   border: 1px solid;
   border-color: ${(props) => props.theme.colors.secondaryText};
+  ${borderColor}
   color: ${(props) => props.theme.colors.primaryText};
-  
   
   &::placholder{
     color: ${(props) => props.theme.colors.secondaryText};
   }
-`
+`;
+
+StyledField.defaultProps = {
+  height: '50px',
+}
 
 type Props = {
   name: string,
   placeholder?: string,
   width?: string,
   type?: string,
-  autocomplete?: string
+  autocomplete?: string,
+  as?: string | React.ComponentType,
+  rows?: Number,
+  height?: string,
+  children?: React.ReactNode,
+  borderColor?: string
 }
 
-const TextInput = ({name, placeholder, width, type, autocomplete} : Props) => {
-  return(
+const TextInput = ({name, children, ...props} : Props) => {
+
+  const [field] = useField(name);
+
+  return( 
     <StyledField 
-      name={name} 
-      placeholder={placeholder} 
-      width={width} type={type} 
-      autoComplete={autocomplete} 
-    />
+      {...field}
+      {...props}
+    >
+       {children}
+    </StyledField>
   )
 }
 

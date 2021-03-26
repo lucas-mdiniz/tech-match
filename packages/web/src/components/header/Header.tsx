@@ -5,7 +5,7 @@ import { Flex, Box } from 'rebass/styled-components';
 import { Link } from '@workshop/route';
 import { FaBell, FaBars, FaTimes } from 'react-icons/fa';
 import {Button as DefaultButton} from 'rebass/styled-components';
-
+import {  DialogDisclosure } from "reakit/Dialog";
 
 import PageContainer from '../../ui/PageContainer';
 import Button from '../../ui/Button';
@@ -101,7 +101,7 @@ const CloseButton = styled(FaTimes)`
     }
 `;
 
-const Header = () => {
+const Header = ({dialog}) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -111,77 +111,81 @@ const Header = () => {
 
 
   return (
-    <Box backgroundColor="primaryDark" marginBottom="50px">
-      <PageContainer>
-        <Flex height={85} alignItems="center" justifyContent="space-between">
-          <Box>
-            <DefaultButton 
-              backgroundColor="transparent" 
-              padding="0" 
-              height="auto"
-              onClick={handleToggleMenu}
-              aria-haspopup="menu"
-              aria-controls="mobile-menu"
-              aria-expanded={ menuOpen ? "true" : "false" }
-              role="button"
-              display={['inline-block', 'none', 'none']}
-            > 
-              <Hamburger color="icons" fontSize="3" display={['inline-block', 'none', 'none']}/>
-            </DefaultButton>
-            <NavBar 
-              role="menu" 
-              id="mobile-menu" 
-              hidden={ menuOpen ? true : false }
-              open={menuOpen} 
-            >
-              <MenuItem 
-                to={"/"} 
-                menuOpen={menuOpen} 
-                color={["primaryText", "icons", "icons"]} 
-                fontSize="1"
-              >
-                  Saved Projects
-              </MenuItem>
-              <MenuItem 
-                to={"/"} 
-                menuOpen={menuOpen} 
-                color={["primaryText", "icons", "icons"]} 
-                fontSize="1"
-              >
-                Messages
-              </MenuItem>
-              <MenuItem 
-                to={"/"} 
-                menuOpen={menuOpen} 
-                color={["primaryText", "icons", "icons"]} 
-                fontSize="1"
-              >
-                My Profile
-              </MenuItem>
-              <CloseButton 
-                color="primaryText" 
-                onClick={ handleToggleMenu } 
-                fontSize={2}
+    <>
+      <Box backgroundColor="primaryDark" marginBottom="50px">
+        <PageContainer>
+          <Flex height={85} alignItems="center" justifyContent="space-between">
+            <Box>
+              <DefaultButton 
+                backgroundColor="transparent" 
+                padding="0" 
+                height="auto"
+                onClick={handleToggleMenu}
+                aria-haspopup="menu"
+                aria-controls="mobile-menu"
+                aria-expanded={ menuOpen ? "true" : "false" }
+                role="button"
                 display={['inline-block', 'none', 'none']}
-              />
-            </NavBar>
-          </Box>
-          <Flex alignItems="center">
-            <Button 
-              backgroundColor="accent" 
-              color="icons"  
-              height="auto" 
-              marginRight="20px"
-              fontSize="1"
-            >
-              Create Project
-            </Button>
-            <Notifications color="icons" fontSize="3" />
+              > 
+                <Hamburger color="icons" fontSize="3" display={['inline-block', 'none', 'none']}/>
+              </DefaultButton>
+              <NavBar 
+                role="menu" 
+                id="mobile-menu" 
+                hidden={ menuOpen ? true : false }
+                open={menuOpen} 
+              >
+                <MenuItem 
+                  to={"/"} 
+                  menuOpen={menuOpen} 
+                  color={["primaryText", "icons", "icons"]} 
+                  fontSize="1"
+                >
+                    Saved Projects
+                </MenuItem>
+                <MenuItem 
+                  to={"/"} 
+                  menuOpen={menuOpen} 
+                  color={["primaryText", "icons", "icons"]} 
+                  fontSize="1"
+                >
+                  Messages
+                </MenuItem>
+                <MenuItem 
+                  to={"/"} 
+                  menuOpen={menuOpen} 
+                  color={["primaryText", "icons", "icons"]} 
+                  fontSize="1"
+                >
+                  My Profile
+                </MenuItem>
+                <CloseButton 
+                  color="primaryText" 
+                  onClick={ handleToggleMenu } 
+                  fontSize={2}
+                  display={['inline-block', 'none', 'none']}
+                />
+              </NavBar>
+            </Box>
+            <Flex alignItems="center">
+              <Button 
+                {...dialog}
+                bg="accent" 
+                color="icons"  
+                height="auto" 
+                mr="20px"
+                fontSize="1"
+                as={DialogDisclosure}
+              >
+                Create Project
+              </Button>
+              <Notifications color="icons" fontSize="3" />
+            </Flex>
           </Flex>
-        </Flex>
-      </PageContainer>
-      {menuOpen && <MenuOverlay onClick={ handleToggleMenu }/>}
-    </Box>
+        </PageContainer>
+        {menuOpen && <MenuOverlay onClick={ handleToggleMenu }/>}
+      </Box>
+    </>
   )
 }
 

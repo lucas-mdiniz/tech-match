@@ -18,7 +18,7 @@ const mutation = mutationWithClientMutationId({
       type: GraphQLString
     }
   }, 
-  mutateAndGetPayload: async ({title, description, lookingFor}, context) => {
+  mutateAndGetPayload: async ({ title, description, lookingFor }, context) => {
     
     const owner = context.user._id;
 

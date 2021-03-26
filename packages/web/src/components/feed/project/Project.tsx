@@ -9,9 +9,9 @@ import { FaRegHeart } from 'react-icons/fa';
 
 import { Project_project$key } from './__generated__/Project_project.graphql';
 
-import Card from '../../ui/Card';
-import Stack from '../../ui/Stack';
-import Tag from '../../ui/Tag';
+import Card from '../../../ui/Card';
+import Stack from '../../../ui/Stack';
+import Tag from '../../../ui/Tag';
 
 const LikeButton = styled(FaRegHeart)`
   ${color}
