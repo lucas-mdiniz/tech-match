@@ -100,7 +100,7 @@ const CreateProject = ({ dialog } : Props) => {
                 name="title" 
                 width="100%" 
                 placeholder="Project title"
-                aria-label="Project title"
+                label="Title"
                 borderColor={(errors.title && touched.title) ? 'alert' : undefined}
               />
             
@@ -116,7 +116,7 @@ const CreateProject = ({ dialog } : Props) => {
                 placeholder="Project description"
                 rows={10}
                 height="auto"
-                aria-label="Project description"
+                label="Description"
                 borderColor={(errors.description && touched.description) ? 'alert' : undefined}
               />
               {errors.description && touched.description ? (
@@ -127,7 +127,7 @@ const CreateProject = ({ dialog } : Props) => {
                 name="lookingFor" 
                 width="100%" 
                 as="select" 
-                aria-label="Professional you are looking for"
+                label="Looking for"
                 borderColor={(errors.lookingFor && touched.lookingFor) ? 'alert' : undefined}
               >
                 <option value="" disabled>Looking for:</option>
