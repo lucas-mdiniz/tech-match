@@ -7,6 +7,7 @@ import Header from '../header/Header';
 import Feed from './Feed';
 import PageWrapper from '../../ui/PageWrapper';
 import PageContainer from '../../ui/PageContainer';
+import FloatingAddButton from '../../ui/FloatingAddButton';
 import CreateProject from '../feed/project/CreateProject';
 
 import { FeedRootQuery } from './__generated__/FeedRootQuery.graphql';
@@ -36,6 +37,7 @@ const FeedRoot = ({prepared} : Props) => {
           <Feed query={data} />
         </PageContainer>
       </PageWrapper>
+      <FloatingAddButton dialog={dialog}/>
       <CreateProject dialog={dialog} />
     </>
   );
