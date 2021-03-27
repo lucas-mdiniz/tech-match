@@ -44,7 +44,6 @@ type Props = {
   rows?: Number,
   height?: string,
   children?: React.ReactNode,
-  borderColor?: string,
   label?: string
 }
 
