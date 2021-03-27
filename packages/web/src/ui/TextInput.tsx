@@ -3,7 +3,11 @@ import { useField } from 'formik';
 import styled from 'styled-components';
 import { height, width, borderColor } from 'styled-system';
 
-export const StyledField = styled.input`
+interface StyledFieldProps {
+  id: string
+}
+
+const StyledField = styled.input<StyledFieldProps>`
   ${width}
   ${height}
   
@@ -21,6 +25,11 @@ export const StyledField = styled.input`
   }
 `;
 
+const StyledLabel = styled.label`
+  margin-bottom: 8px;
+  display: block;
+`;
+
 StyledField.defaultProps = {
   height: '50px',
 }
@@ -35,20 +44,24 @@ type Props = {
   rows?: Number,
   height?: string,
   children?: React.ReactNode,
-  borderColor?: string
+  label?: string
 }
 
-const TextInput = ({name, children, ...props} : Props) => {
+const TextInput = ({name, children, label, ...props} : Props) => {
 
   const [field] = useField(name);
-
+    
   return( 
+    <>
+    {label && <StyledLabel htmlFor={field.name}>{label}</StyledLabel>}
     <StyledField 
       {...field}
       {...props}
+      id={field.name}
     >
        {children}
     </StyledField>
+    </>
   )
 }
 
