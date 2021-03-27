@@ -44,7 +44,8 @@ type Props = {
   rows?: Number,
   height?: string,
   children?: React.ReactNode,
-  label?: string
+  label?: string,
+  borderColor?: string
 }
 
 const TextInput = ({name, children, label, ...props} : Props) => {
