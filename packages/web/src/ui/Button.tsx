@@ -20,6 +20,7 @@ export default styled(Button)<ButtonProps>`
   cursor: pointer;
   box-sizing: border-box;
   padding: 10px;
+  max-width: 100%;
 
   &:disabled{
     opacity: 0.5;
