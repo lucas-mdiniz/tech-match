@@ -45,7 +45,7 @@ const Project = (props : Props) =>{
 
   return (
     <>
-      <DialogDisclosure {...dialog} as={Card}>
+      <DialogDisclosure {...dialog} as={Card} cursor="pointer">
         <Heading as="h2" color="primaryText" fontSize="3" paddingRight="24px">{data.title}</Heading>
         <Stack height="20px"/>
         <Text color="secondaryText" fontSize="0">
