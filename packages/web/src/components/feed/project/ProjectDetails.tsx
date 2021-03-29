@@ -11,6 +11,7 @@ import Stack from '../../../ui/Stack';
 import Tag from '../../../ui/Tag';
 import FormError from '../../../ui/FormError';
 import Button from '../../../ui/Button';
+import Avatar from '../../../ui/Avatar';
 
 interface Props {
   project: ProjectDetails$key
@@ -47,6 +48,7 @@ const ProjectDetails = (props : Props) => {
 
   return (
     <>
+      <Avatar size={50} alt="Lucas Diniz" />
       <Heading as="h2" textAlign="center" color="primaryText" fontSize="3" paddingRight="24px">{data.title}</Heading>
       <Stack height="20px"/>
       <Text color="secondaryText" fontSize="0">
