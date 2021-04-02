@@ -11,7 +11,7 @@ const Wrapper = styled.div<WrapperProps>`
     height: ${size}px;
   `}
   font-size: ${({size}) => size ? `${size/2.5}px` : '20px'};
-  ${({theme}) => `background: ${theme.colors.accent}`}
+  ${({theme}) => `background: ${theme.colors.accent}`};
   overflow: hidden;
   border-radius: 50%;
   display: flex;
