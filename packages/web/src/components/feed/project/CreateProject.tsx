@@ -39,11 +39,11 @@ const CreateProject = ({ dialog } : Props) => {
     title: yup.string()
       .min(3, 'Title must be at least 3 characters')
       .max(100)
-      .required('This field is required'),
+      .required('Required'),
     description: yup.string()
       .min(3, 'Description must be at least 3 characters')
-      .required('This field is required'),
-    lookingFor: yup.string().oneOf(['developer', 'designer']).required('This field is required'),
+      .required('Required'),
+    lookingFor: yup.string().oneOf(['developer', 'designer']).required('Required'),
   });
 
   const handleSubmit = (values : FormValues, { resetForm } : FormikHelpers<FormValues>) => {

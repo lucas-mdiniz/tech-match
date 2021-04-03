@@ -71,7 +71,7 @@ const AvatarUpload = ({name} : Props) => {
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const [avatar, setAvatar] = useState<string | null>(null);
 
-  const [field] = useField(name);
+  const [field, meta, helpers] = useField(name);
 
   const reader = new FileReader();
 
@@ -80,7 +80,9 @@ const AvatarUpload = ({name} : Props) => {
   }
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    field.onChange(e);
+    if(e.currentTarget.files?.length){
+      helpers.setValue(e.currentTarget.files[0]);
+    }
 
     const element = hiddenFileInput.current;
 
@@ -109,7 +111,6 @@ const AvatarUpload = ({name} : Props) => {
       <input 
         name={field.name}
         onBlur={field.onBlur}
-        value={field.value}
         onChange={handleChange}
         ref={hiddenFileInput} 
         type="file" 

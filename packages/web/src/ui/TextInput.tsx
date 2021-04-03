@@ -39,17 +39,16 @@ type Props = {
   placeholder?: string,
   width?: string,
   type?: string,
-  autocomplete?: string,
+  autoComplete?: string,
   as?: string | React.ComponentType,
   rows?: Number,
   height?: string,
   children?: React.ReactNode,
   label?: string,
-  borderColor?: string
+  borderColor?: string,
 }
 
 const TextInput = ({name, children, label, ...props} : Props) => {
-
   const [field] = useField(name);
     
   return( 

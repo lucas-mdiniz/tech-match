@@ -15,12 +15,13 @@ interface ItemProps {
   name: string;
   value: string;
   children: string;
+  checked?: Boolean;
 }
 
-const RadioItem = ({name, value, children} : ItemProps) => {
+const RadioItem = ({name, value, children, checked} : ItemProps) => {
   return (
     <StyledLabel>
-      <Field type="radio" name={name} value={value} />
+      <Field type="radio" name={name} value={value} checked={checked}/>
       {children}
     </StyledLabel>
   )
